@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <th:block layout:replace="~{layout/fragment/_global :: global_meta}"></th:block>
+        <th:block layout:fragment="styles"></th:block>
+        <th:block layout:replace="~{layout/fragment/_global :: global_styles}"></th:block>
+        <th:block layout:replace="~{layout/fragment/_global :: global_scripts}"></th:block>
+
+        <title layout:fragment="title">english learn</title>
+    </head>
+    <body>
+        <th:block layout:replace="~{layout/fragment/navMenu}"></th:block>
+        <th:block layout:fragment="contents"></th:block>
+        <th:block layout:fragment="scripts"></th:block>
+    </body>
+</html>

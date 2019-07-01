@@ -1,0 +1,63 @@
+body { padding-top: 100px; }
+
+.flex {
+    display: flex;
+}
+
+.flex.inline {
+    align-items: center;
+}
+
+.clearfix:before, .clearfix:after{
+    clear: both;
+    display:block;
+    content: '';
+}
+
+.space {
+    flex: 1;
+}
+
+.margin-0 {
+    margin: 0 !important;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.table>thead>tr>th {
+    border-bottom: 1px solid #ddd !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border-top: 0 !important;
+}
+
+.full-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.add-text-title{
+    border: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 7px 8px;
+    color: #5c5c5c;
+    font-size: 32px;
+    font-weight: 700;
+    border-bottom: 1px solid #eeeeee;
+    transition: all .2s;
+}
+
+input:focus{
+    outline: none;
+}
+
+/*여기서 부터는 editor class 오버라이딩입니다.*/
+.ql-container{
+    margin-bottom: 20px;
+}
