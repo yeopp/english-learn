@@ -1,5 +1,6 @@
 package com.yeopp.community.vo;
 
+import com.yeopp.community.entity.BoardEntity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,5 +27,4 @@ public class BoardVo implements Serializable {
 
     @DateTimeFormat(pattern = "yy-mm-dd")
     private Date updateDt;
-
 }

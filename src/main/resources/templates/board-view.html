@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<th:block layout:fragment="title">
+    <title th:text="${boardEntity.title}"></title>
+</th:block>
+<th:block layout:fragment="contents">
+    <div class="container-fluid mb-50">
+        <img class="full-image"
+             src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
+             alt="...">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 th:text="${boardEntity.title}">타이틀</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 board-view-content">
+                <div th:utext="${boardEntity.boardContent}">1</div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<script layout:fragment="scripts">
+</script>

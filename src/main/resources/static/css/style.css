@@ -1,7 +1,20 @@
-body { padding-top: 100px; }
+body { padding-top: 100px; background-color: #f2f4f7 !important; }
 
 .flex {
     display: flex;
+}
+
+.main {
+    background-color: #ffffff;
+    height: calc(100vh - 100px);
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.container {
+    /*border: 1px solid #dee3eb !important;
+    background-color: #ffffff;
+    padding: 20px;*/
 }
 
 .flex.inline {
@@ -60,4 +73,14 @@ input:focus{
 /*여기서 부터는 editor class 오버라이딩입니다.*/
 .ql-container{
     margin-bottom: 20px;
+}
+.ql-editor {
+    min-height: 500px;
+}
+.board-view-content {
+    font-size: 20px;
+}
+
+.ql-snow {
+    border: 0 !important;
 }

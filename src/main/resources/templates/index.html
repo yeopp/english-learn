@@ -2,106 +2,71 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org/"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.thymeleaf.org/spring-data"
       layout:decorator="layout/default">
 <th:block layout:fragment="contents">
     <div class="container-fluid mb-50">
-        <img class="full-image" src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg" alt="...">
+        <img class="full-image"
+             src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
+             alt="...">
     </div>
-    <div class="container">
-        <!-- Default panel contents -->
-        <div class="flex inline">
-            <span class="space"></span>
-            <a href="/board/add" class="btn btn-primary btn-sm">
-                <i class="fa fa-magic" aria-hidden="true"></i>
-                글쓰기
-            </a>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Default panel contents -->
+            <div class="flex inline">
+                <span class="space"></span>
+                <a href="/board/add" class="btn btn-primary btn-sm">
+                    <i class="fa fa-magic" aria-hidden="true"></i>
+                    글쓰기
+                </a>
+            </div>
+            <!-- Table -->
+
+            <table class="table table-hover">
+                <caption th:text="|${boardVo.totalElements}개|">총 24개</caption>
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="50%"/>
+                    <col width="10%"/>
+                </colgroup>
+                <thead class="bg-dark">
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th>추천</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board, index:${boardVo}"
+                    style="cursor: pointer">
+                    <td th:text="${boardVo.totalElements - (boardVo.getNumber() *10) - index.index}">1</td>
+                    <td class="flex inline">
+                        <!--<span class="label label-primary">Primary</span>-->
+                        <a href="#" th:href="@{/boards/__${board.boardId}__}" th:text="${board.title}"></a>
+                    </td>
+                    <td th:text="${board.boardWriter}">ncsoft</td>
+                    <!--<td th:if="${board.isToday()? #dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss') : #dates.format(board.createDt, 'yyyy-MM-dd')}"></td>-->
+                    <td th:text="${#dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${board.views}">23421</td>
+                    <td th:text="${board.recommended}">22</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="pagination_wrap text-center" th:if="${boardVo.totalElements > 0}" sd:pagination="full"></div>
         </div>
-        <!-- Table -->
-
-        <table class="table table-hover">
-            <colgroup>
-                <col width="10%"/>
-                <col width="50%"/>
-                <col width="10%"/>
-            </colgroup>
-            <thead class="bg-dark">
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>작성일</th>
-                <th>조회</th>
-                <th>추천</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td class="flex inline">뉴스 <span class="label label-primary">Primary</span></td>
-                <td>ncsoft</td>
-                <td>2018.05.01</td>
-                <td>23421</td>
-                <td>22</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="flex inline">뉴스 <span class="label label-primary">Primary</span></td>
-                <td>ncsoft</td>
-                <td>2018.05.01</td>
-                <td>23421</td>
-                <td>22</td>
-            </tr><tr>
-                <td>1</td>
-                <td class="flex inline">뉴스 <span class="label label-primary">Primary</span></td>
-                <td>ncsoft</td>
-                <td>2018.05.01</td>
-                <td>23421</td>
-                <td>22</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="flex inline">뉴스 <span class="label label-primary">Primary</span></td>
-                <td>ncsoft</td>
-                <td>2018.05.01</td>
-                <td>23421</td>
-                <td>22</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="flex inline">뉴스 <span class="label label-primary">Primary</span></td>
-                <td>ncsoft</td>
-                <td>2018.05.01</td>
-                <td>23421</td>
-                <td>22</td>
-            </tr>
-
-
-
-            </tbody>
-        </table>
-
-        <nav class="text-center">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
 </th:block>
 
 <script layout:fragment="scripts">
     $('.carousel').carousel()
+
+    function locationHandler(id) {
+        location.href = "/board/view?boardId=" + id;
+    }
+
 </script>
