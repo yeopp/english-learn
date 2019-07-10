@@ -24,18 +24,18 @@ public class BoardController {
 
     @RequestMapping(value = {"/", "/boards"}, method = RequestMethod.GET)
     public ModelAndView home(@PageableDefault(sort = {"boardId"}, direction = Sort.Direction.DESC) Pageable pageable) {
-        ModelAndView model = new ModelAndView("index");
+        ModelAndView model = new ModelAndView("public/index");
         Page<BoardEntity> boardEntity = boardService.listBoard(pageable);
 
         model.addObject("boardVo", boardEntity);
-        Boolean test = boardEntity.getContent().get(0).isToday();
-        System.out.println(test);
+/*        Boolean test = boardEntity.getContent().get(0).isToday();
+        System.out.println(test);*/
         return model;
     }
 
     @RequestMapping(value = "/board/add", method = RequestMethod.GET)
     public ModelAndView boardAdd(@ModelAttribute("boardVo") BoardVo boardVo) {
-        return new ModelAndView("board-add");
+        return new ModelAndView("private/board-add");
     }
 
     @RequestMapping(value = "/board/addAf", method = RequestMethod.POST)
@@ -57,6 +57,6 @@ public class BoardController {
         }
         model.addAttribute("boardEntity", boardEntity);
 
-        return "board-view";
+        return "public/board-view";
     }
 }

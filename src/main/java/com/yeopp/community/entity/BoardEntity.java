@@ -3,24 +3,28 @@ package com.yeopp.community.entity;
 import com.yeopp.community.type.YesNoType;
 import com.yeopp.community.vo.BoardVo;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tbl_board")
 @NoArgsConstructor
-public class BoardEntity {
+public class BoardEntity implements Serializable {
 
     @Id
     @GeneratedValue
