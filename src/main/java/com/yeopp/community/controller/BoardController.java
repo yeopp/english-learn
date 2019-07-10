@@ -35,7 +35,7 @@ public class BoardController {
 
     @RequestMapping(value = "/board/add", method = RequestMethod.GET)
     public ModelAndView boardAdd(@ModelAttribute("boardVo") BoardVo boardVo) {
-        return new ModelAndView("private/board-add");
+        return new ModelAndView("board-add");
     }
 
     @RequestMapping(value = "/board/addAf", method = RequestMethod.POST)

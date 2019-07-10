@@ -84,3 +84,11 @@ input:focus{
 .ql-snow {
     border: 0 !important;
 }
+
+.input-group{
+    width:80%;
+}
+
+.add-text-title {
+    width: 80% !important;
+}

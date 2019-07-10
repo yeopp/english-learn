@@ -1,8 +1,10 @@
 package com.yeopp.community.entity;
 
 import com.yeopp.community.type.YesNoType;
+import com.yeopp.community.vo.UserVo;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "tbl_user")
+@NoArgsConstructor
 public class UserEntity implements Serializable {
 
     @Id
@@ -51,4 +54,11 @@ public class UserEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "fk_role_id")
     )
     private List<RoleEntity> roleEntityList;
+
+    public UserEntity(UserVo vo) {
+        this.userIdentification = vo.getUserIdentification();
+        this.userName = vo.getUserName();
+        this.userEmail = vo.getUserEmail();
+        this.userPhoneNumber = vo.getUserPhoneNumber();
+    }
 }

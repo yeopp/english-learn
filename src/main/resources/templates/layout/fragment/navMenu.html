@@ -5,9 +5,15 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Brand</a>
+                <a class="navbar-brand" href="/">EveryLearn</a>
             </div>
-            <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+            <div class="navbar-text navbar-right">
+                <form th:action="@{/logout}" th:method="post">
+                    <button type="submit">
+                        logout
+                    </button>
+                </form>
+            </div>
         </div>
     </nav>
 </header>
