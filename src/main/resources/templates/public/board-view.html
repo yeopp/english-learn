@@ -12,19 +12,24 @@
              src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
              alt="...">
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h1 th:text="${boardEntity.title}">타이틀</h1>
-            </div>
+
+    <div class="row bg-white mb-30">
+        <div class="col-md-12">
+            <h1 type="text" id="title" class="add-text-title" th:field="${boardEntity.title}">title</h1>
+            <div th:utext="${boardEntity.boardContent}"></div>
         </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 board-view-content">
-                <div th:utext="${boardEntity.boardContent}">1</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="clearfix">
+                <button class="btn btn-default pull-right" type="button" onclick="onSubmitHandler(event)">글쓰기</button>
+                <button type="button" class="btn btn-info">추천</button>
+                <button type="button" class="btn btn-danger">비추천</button>
             </div>
         </div>
     </div>
 </th:block>
 
 <script layout:fragment="scripts">
+
 </script>

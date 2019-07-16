@@ -5,59 +5,62 @@
       xmlns:sd="http://www.thymeleaf.org/spring-data"
       layout:decorator="layout/default">
 <th:block layout:fragment="contents">
-    <div class="container-fluid mb-50">
-        <img class="full-image"
-             src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
-             alt="...">
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Default panel contents -->
-            <div class="flex inline">
-                <span class="space"></span>
-                <a href="/board/add" class="btn btn-primary btn-sm">
-                    <i class="fa fa-magic" aria-hidden="true"></i>
-                    글쓰기
-                </a>
+    <div class="bg-white" style="width: 100%; height: 100%; padding: 20px;">
+        <div class="container-fluid mb-50">
+            <img class="full-image"
+                 src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
+                 alt="...">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Default panel contents -->
+                <div class="flex inline">
+                    <span class="space"></span>
+                    <a href="/board/add" class="btn btn-primary btn-sm">
+                        <i class="fa fa-magic" aria-hidden="true"></i>
+                        글쓰기
+                    </a>
+                </div>
+                <!-- Table -->
+
+                <table class="table table-hover">
+                    <caption th:text="|${boardVo.totalElements}개|">총 24개</caption>
+                    <colgroup>
+                        <col width="10%"/>
+                        <col width="50%"/>
+                        <col width="10%"/>
+                    </colgroup>
+                    <thead class="bg-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                        <th>추천</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board, index:${boardVo}"
+                        style="cursor: pointer">
+                        <td th:text="${boardVo.totalElements - (boardVo.getNumber() *10) - index.index}">1</td>
+                        <td class="flex inline">
+                            <!--<span class="label label-primary">Primary</span>-->
+                            <a href="#" th:href="@{/boards/__${board.boardId}__}" th:text="${board.title}"></a>
+                        </td>
+                        <td th:text="${board.boardWriter}">ncsoft</td>
+                        <!--<td th:if="${board.isToday()? #dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss') : #dates.format(board.createDt, 'yyyy-MM-dd')}"></td>-->
+                        <td th:text="${#dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td th:text="${board.views}">23421</td>
+                        <td th:text="${board.recommended}">22</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="pagination_wrap text-center" th:if="${boardVo.totalElements > 0}"
+                     sd:pagination="full"></div>
             </div>
-            <!-- Table -->
-
-            <table class="table table-hover">
-                <caption th:text="|${boardVo.totalElements}개|">총 24개</caption>
-                <colgroup>
-                    <col width="10%"/>
-                    <col width="50%"/>
-                    <col width="10%"/>
-                </colgroup>
-                <thead class="bg-dark">
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>글쓴이</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                    <th>추천</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="board, index:${boardVo}"
-                    style="cursor: pointer">
-                    <td th:text="${boardVo.totalElements - (boardVo.getNumber() *10) - index.index}">1</td>
-                    <td class="flex inline">
-                        <!--<span class="label label-primary">Primary</span>-->
-                        <a href="#" th:href="@{/boards/__${board.boardId}__}" th:text="${board.title}"></a>
-                    </td>
-                    <td th:text="${board.boardWriter}">ncsoft</td>
-                    <!--<td th:if="${board.isToday()? #dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss') : #dates.format(board.createDt, 'yyyy-MM-dd')}"></td>-->
-                    <td th:text="${#dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${board.views}">23421</td>
-                    <td th:text="${board.recommended}">22</td>
-                </tr>
-
-                </tbody>
-            </table>
-
-            <div class="pagination_wrap text-center" th:if="${boardVo.totalElements > 0}" sd:pagination="full"></div>
         </div>
     </div>
 </th:block>

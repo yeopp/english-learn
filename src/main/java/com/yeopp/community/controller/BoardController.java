@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
@@ -39,20 +42,19 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/board/addAf", method = RequestMethod.POST)
-    public String boardAddAf(BoardVo boardVo) {
-        System.out.println(boardVo.toString());
-        boardVo.setBoardWriter("teset");
-        BoardEntity entity = boardService.addBoard(boardVo);
+    public String boardAddAf(BoardVo boardVo, Principal principal) {
+
+        BoardEntity entity = boardService.addBoard(boardVo, principal.getName());
         return "redirect:/boards/" + entity.getBoardId();
     }
 
     @RequestMapping(value = "/boards/{boardId}", method = RequestMethod.GET)
-    public String boardView(@PathVariable Integer boardId, Model model) {
-
+    public String boardView(@PathVariable Integer boardId, Model model, HttpSession session, Principal principal) {
 
         BoardEntity boardEntity = boardService.detailBoard(boardId);
+        boardService.boardViewService(boardId, principal, session);
 
-        if(boardEntity == null){
+        if (boardEntity == null) {
             return "redirect:/boards";
         }
         model.addAttribute("boardEntity", boardEntity);

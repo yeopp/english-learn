@@ -5,6 +5,7 @@
         <meta charset="UTF-8" />
         <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta id="_csrf" th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}"/>
     </th:block>
 
     <th:block layout:fragment="global_styles">
@@ -22,5 +23,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="/js/main.js"></script>
     </th:block>
 </thymeleaf>

@@ -3,14 +3,15 @@
 
 <header>
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container flex inline">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">EveryLearn</a>
             </div>
+            <span class="space"></span>
             <div class="navbar-text navbar-right">
                 <form th:action="@{/logout}" th:method="post">
-                    <button type="submit">
-                        logout
+                    <button type="submit" class="btn btn-outline btn-sm">
+                        LOGOUT
                     </button>
                 </form>
             </div>
