@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ViewsRepository extends JpaRepository<ViewsEntity, Integer> {
-    ViewsEntity findByUserIdAndBoardEntityBoardId(String userId, Integer boardId);
+    Integer countByUserIdAndBoardEntityBoardId(String userId, Integer boardId);
 }

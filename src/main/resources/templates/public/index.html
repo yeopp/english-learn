@@ -51,8 +51,8 @@
                         <td th:text="${board.boardWriter}">ncsoft</td>
                         <!--<td th:if="${board.isToday()? #dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss') : #dates.format(board.createDt, 'yyyy-MM-dd')}"></td>-->
                         <td th:text="${#dates.format(board.createDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td th:text="${board.views}">23421</td>
-                        <td th:text="${board.recommended}">22</td>
+                        <td th:text="${board.getViewsEntityList().size()}">23421</td>
+                        <td th:text="${board.getRecommendationEntityList().size()}">22</td>
                     </tr>
 
                     </tbody>

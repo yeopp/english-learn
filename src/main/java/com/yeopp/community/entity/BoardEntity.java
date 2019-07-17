@@ -2,14 +2,12 @@ package com.yeopp.community.entity;
 
 import com.yeopp.community.type.YesNoType;
 import com.yeopp.community.vo.BoardVo;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,12 +37,6 @@ public class BoardEntity implements Serializable {
     @Column(nullable = false)
     private String boardWriter;
 
-    @ColumnDefault(value = "'0'")
-    private Integer views;
-
-    @ColumnDefault(value = "'0'")
-    private Integer recommended;
-
     @Enumerated(value = EnumType.STRING)
     @ColumnDefault(value = "'N'")
     @Column(columnDefinition = "enum('Y', 'N')")
@@ -58,6 +50,12 @@ public class BoardEntity implements Serializable {
 
     @OneToMany(targetEntity = CommentEntity.class, mappedBy = "boardEntity")
     private List<CommentEntity> commentEntityList;
+
+    @OneToMany(targetEntity = RecommendationEntity.class, mappedBy = "boardEntity")
+    private List<RecommendationEntity> recommendationEntityList;
+
+    @OneToMany(targetEntity = ViewsEntity.class, mappedBy = "boardEntity")
+    private List<ViewsEntity> viewsEntityList;
 
     public BoardEntity(BoardVo vo) {
         this.title = vo.getTitle();
@@ -78,14 +76,14 @@ public class BoardEntity implements Serializable {
         String result2 = format2.format(today);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
-        cal.add(Calendar.SECOND,-1);
+        cal.add(Calendar.SECOND, -1);
 
         try {
             Date beforeToday = format.parse(result);
             Date afterToday = format2.parse(result2);
 
-            if(createDate.getTime() > beforeToday.getTime()
-                    && createDate.getTime() < afterToday.getTime()){
+            if (createDate.getTime() > beforeToday.getTime()
+                    && createDate.getTime() < afterToday.getTime()) {
                 flag = true;
             }
 
