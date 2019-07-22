@@ -1,9 +1,11 @@
 package com.yeopp.community.service.impl;
 
 import com.yeopp.community.entity.BoardEntity;
+import com.yeopp.community.entity.RecommendationEntity;
 import com.yeopp.community.entity.UserEntity;
 import com.yeopp.community.entity.ViewsEntity;
 import com.yeopp.community.repository.BoardRepository;
+import com.yeopp.community.repository.RecommendationRepository;
 import com.yeopp.community.repository.UserRepository;
 import com.yeopp.community.repository.ViewsRepository;
 import com.yeopp.community.service.BoardService;
@@ -24,6 +26,7 @@ public class BoardServiceImpl implements BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final ViewsRepository viewsRepository;
+    private final RecommendationRepository recommendationRepository;
 
     @Override
     @Transactional
@@ -90,5 +93,29 @@ public class BoardServiceImpl implements BoardService {
                 viewsRepository.save(viewsEntity);
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public Integer boardRecommendationService(Integer boardId, Integer recommended, Principal principal){
+
+        int result;
+
+        BoardEntity boardEntity = detailBoard(boardId);
+        Integer recommendCount = recommendationRepository.countByUserIdAndBoardEntityBoardId(principal.getName(), boardId);
+
+        if(recommendCount < 1){
+            RecommendationEntity reEntity = new RecommendationEntity();
+            reEntity.setUserId(principal.getName());
+            reEntity.setBoardEntity(boardEntity);
+            reEntity.setRecommendationNm(recommended);
+            recommendationRepository.save(reEntity);
+
+            result = 1;
+        }else{
+            result = 2;
+        }
+
+        return result;
     }
 }

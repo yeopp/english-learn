@@ -1,6 +1,7 @@
 package com.yeopp.community.controller;
 
 import com.yeopp.community.entity.BoardEntity;
+import com.yeopp.community.repository.RecommendationRepository;
 import com.yeopp.community.service.BoardService;
 import com.yeopp.community.vo.BoardVo;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +25,14 @@ import java.security.Principal;
 public class BoardController {
 
     private final BoardService boardService;
+    private final RecommendationRepository recommendationRepository;
 
     @RequestMapping(value = {"/", "/boards"}, method = RequestMethod.GET)
-    public ModelAndView home(@PageableDefault(sort = {"boardId"}, direction = Sort.Direction.DESC) Pageable pageable) {
+    public ModelAndView home(@PageableDefault(sort = {"boardId"}, direction = Sort.Direction.DESC) Pageable pageable, Principal principal) {
         ModelAndView model = new ModelAndView("public/index");
         Page<BoardEntity> boardEntity = boardService.listBoard(pageable);
-
         model.addObject("boardVo", boardEntity);
+
 /*        Boolean test = boardEntity.getContent().get(0).isToday();
         System.out.println(test);*/
         return model;
@@ -58,7 +60,7 @@ public class BoardController {
             return "redirect:/boards";
         }
         model.addAttribute("boardEntity", boardEntity);
-
+        model.addAttribute("principal", principal != null ? principal.getName() : null);
         return "public/board-view";
     }
 }

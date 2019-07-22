@@ -94,4 +94,13 @@ public class BoardEntity implements Serializable {
         }
     }
 
+    public Integer getRecommendation() {
+        Integer recommend = 0;
+        for (int i = 0; i < this.recommendationEntityList.size(); i++) {
+            recommend += this.recommendationEntityList.get(i).getRecommendationNm();
+        }
+
+        return recommend;
+    }
+
 }

@@ -21,4 +21,6 @@ public interface BoardService {
     Boolean removeBoard(Integer boardId);
 
     void boardViewService(Integer boardId, Principal principal, HttpSession session);
+
+    Integer boardRecommendationService(Integer boardId, Integer recommended, Principal principal);
 }
