@@ -2,10 +2,11 @@ package com.yeopp.community.entity;
 
 import com.yeopp.community.type.YesNoType;
 import com.yeopp.community.vo.UserVo;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -43,8 +44,10 @@ public class UserEntity implements Serializable {
 
     private Date lastLoginDt;
 
+    @CreationTimestamp
     private Date createDt;
 
+    @UpdateTimestamp
     private Date updateDt;
 
     @ManyToMany

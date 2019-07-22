@@ -12,36 +12,122 @@
           id="boardAddForm">
         <div class="container">
             <h3>회원정보 입력</h3>
-
-            <div class="input-group" style="margin-top: 20px">
-                <span class="input-group-addon" id="userIdentification">id</span>
-                <input type="text" class="form-control" aria-describedby="userIdentification" th:field="*{userIdentification}">
+            <div style="display: flex">
+                <div class="input-group" style="">
+                    <span class="input-group-addon">id</span>
+                    <input type="text" class="form-control" id="userIdentification"
+                           aria-describedby="userIdentification" th:field="*{userIdentification}"/>
+                </div>
+                <button type="button" class="btn btn-default" style="margin-left: 20px; height: 40px;"
+                        onclick="idCheck()">중복체크
+                </button>
             </div>
 
             <div class="input-group" style="margin-top: 20px">
-                <span class="input-group-addon" id="userPassword" >password</span>
-                <input type="text" class="form-control" aria-describedby="userPassword" th:field="*{userPassword}">
+                <span class="input-group-addon">password</span>
+                <input type="password" class="form-control" id="userPassword" aria-describedby="userPassword" th:field="*{userPassword}"/>
+            </div>
+
+            <div class="input-group" style="margin-top: 20px">
+                <span class="input-group-addon">password</span>
+                <input type="password" class="form-control" id="userPasswordCheck" aria-describedby="userPassword"/>
             </div>
 
             <div class="input-group" style="margin-top:20px">
-                <span class="input-group-addon" id="userName" >name</span>
-                <input type="text" class="form-control" aria-describedby="userName" th:field="*{userName}">
+                <span class="input-group-addon">name</span>
+                <input type="text" class="form-control" id="userName" aria-describedby="userName"
+                       th:field="*{userName}"/>
             </div>
 
             <div class="input-group" style="margin-top: 20px">
-                <span class="input-group-addon" id="userPhoneNumber" >phone</span>
-                <input type="text" class="form-control" aria-describedby="userPhoneNumber" th:field="*{userPhoneNumber}">
+                <span class="input-group-addon">phone</span>
+                <input type="text" class="form-control" id="userPhoneNumber" aria-describedby="userPhoneNumber" placeholder="- 제외하여 입력해주세요."
+                       th:field="*{userPhoneNumber}"/>
             </div>
 
             <div class="input-group" style="margin-top: 20px">
-                <span class="input-group-addon" id="userEmail" >email</span>
-                <input type="text" class="form-control" aria-describedby="userEmail" th:field="*{userEmail}">
+                <span class="input-group-addon">email</span>
+                <input type="text" class="form-control" id="userEmail" aria-describedby="userEmail"
+                       th:field="*{userEmail}"/>
             </div>
+
+            <button type="submit" class="btn btn-default pull-right" style="" onclick="validation(event)">회원가입</button>
         </div>
-        <button type="submit" class="btn btn-default pull-right">회원가입</button>
     </form>
+    <input type="hidden" id="idCheckFlag" value=""/>
 </th:block>
 
-<div layout:fragment="scripts" th:remove="tag">
+<script layout:fragment="scripts" th:inline="javascript">
 
-</div>
+    function idCheck() {
+
+        var result = document.getElementById('userIdentification').value;
+        $.ajax({
+            url: '/user/idValidationCheck',
+            method: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: result,
+            success: function (data) {
+                if (data) {
+                    alert("사용가능한 아이디입니다.");
+                    document.getElementById('idCheckFlag').value = 'true';
+                } else {
+                    alert("중복된 아이디입니다.");
+                    document.getElementById('idCheckFlag').value = 'false';
+                }
+            },
+            error: function (e) {
+                console.log(e.toString());
+            }
+        });
+    }
+
+    function validation(e) {
+        e.preventDefault();
+
+        var idCheckFlag = document.getElementById('idCheckFlag').value;
+        if (idCheckFlag === null
+            || idCheckFlag === ''
+            || idCheckFlag !== 'true') {
+            alert("id 중복체크를 먼저 해주세요.");
+            return false;
+        }
+
+        var password = document.getElementById('userPassword').value;
+        var passwordCheck = document.getElementById('userPasswordCheck').value;
+        if (password === null || password === ''
+            || passwordCheck === null || password === '') {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+
+        if (password !== passwordCheck) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+
+        var name = document.getElementById('userName').value;
+        if(name === null || name === ''){
+            alert("이름을 입력해주세요.");
+            return false;
+        }
+
+        var phoneNm = document.getElementById('userPhoneNumber').value;
+        var phoneReg = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+        if (phoneNm === null || !phoneReg.test(phoneNm)) {
+            alert("유효한 핸드폰 번호가 아닙니다.");
+            return false;
+        }
+
+        var emailReg=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        var email = document.getElementById('userEmail').value;
+        if(email === null || email === '' || !emailReg.test(email)){
+            alert("유효한 이메일이 아닙니다.");
+            return false;
+        }
+
+        document.getElementById('boardAddForm').submit();
+    }
+
+</script>

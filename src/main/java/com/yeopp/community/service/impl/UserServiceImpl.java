@@ -10,6 +10,7 @@ import com.yeopp.community.vo.UserVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public UserEntity addUser(UserVo userVo) {
 
         //TODO... user check validation check 미구현
@@ -38,4 +40,20 @@ public class UserServiceImpl implements UserService {
         userEntity.setRoleEntityList(role);
         return userRepository.save(userEntity);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean userIdentificationCheck(String userId) {
+
+        boolean flag = false;
+
+        UserEntity userEntity = userRepository.findByUserIdentification(userId.trim());
+        if(userEntity == null){
+            flag = true;
+        }
+
+        return flag;
+    }
+
+
 }
