@@ -22,7 +22,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="clearfix">
-                <button class="btn btn-default pull-right" type="button" onclick="onSubmitHandler(event)">글쓰기</button>
+                <div th:if="${principal != null && principal == boardEntity.boardWriter}">
+                    <button class="btn btn-default pull-right" type="button" onclick="editBoard()">수정하기</button>
+                </div>
                 <button type="button" class="btn btn-info" onclick="editRecommendation(1)">추천</button>
                 <button type="button" class="btn btn-danger" onclick="editRecommendation(-1)">비추천</button>
             </div>
@@ -34,9 +36,9 @@
 
     function editRecommendation(recommendationNm) {
 
-        var principal = [[ ${principal} ]];
+        var principal = [[${principal}]];
 
-        if(principal === null){
+        if (principal === null) {
             alert("로그인이 필요합니다.");
             return false;
         }
@@ -55,9 +57,9 @@
             success: function (data) {
                 if (data === 1) {
                     alert("반영되었습니다.");
-                } else if(data === 2){
+                } else if (data === 2) {
                     alert("계정당 1회 가능합니다.");
-                }else{
+                } else {
                     alert("다시 시도해 주세요.");
                 }
             },
@@ -66,6 +68,10 @@
             }
         })
 
+    }
+
+    function editBoard() {
+        location.href = "/boards/edit?boardId=" + id;
     }
 
 </script>
