@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecommendationRepository extends JpaRepository<RecommendationEntity, Integer> {
     Integer countByUserIdAndBoardEntityBoardId(String userId, Integer boardId);
+
     Integer countByBoardEntityBoardId(Integer boardId);
 }

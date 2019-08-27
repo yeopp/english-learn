@@ -34,4 +34,20 @@ public class CommentEntity implements Serializable {
     @JoinColumn(name = "board_id")
     @ManyToOne(targetEntity = BoardEntity.class)
     private BoardEntity boardEntity;
+
+    @Setter
+    @Getter
+    public static class SetCommentVo{
+        private String commentWriter;
+        private String commentContent;
+        private Date createDt;
+    }
+
+    public SetCommentVo getCommentSimple(){
+        SetCommentVo setCommentVo = new SetCommentVo();
+        setCommentVo.setCommentContent(commentContent);
+        setCommentVo.setCommentWriter(commentWriter);
+        setCommentVo.setCreateDt(createDt);
+        return setCommentVo;
+    }
 }

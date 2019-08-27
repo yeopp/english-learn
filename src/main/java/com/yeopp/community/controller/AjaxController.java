@@ -32,7 +32,7 @@ public class AjaxController {
     @ResponseBody
     @Transactional
     @RequestMapping(value = "/user/idValidationCheck", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> checkUserIdentification(@RequestBody String userIdentification){
+    public ResponseEntity<Boolean> checkUserIdentification(@RequestBody String userIdentification) {
         return ResponseEntity.ok(userService.userIdentificationCheck(userIdentification.trim()));
     }
 }

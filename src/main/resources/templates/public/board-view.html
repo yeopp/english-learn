@@ -12,7 +12,6 @@
              src="https://thumbnail14.coupangcdn.com/thumbnails/remote/x/image/bannerunit/bannerunit_5dd124da-d849-4c91-a8a9-84bc59326f28.jpg"
              alt="...">
     </div>
-
     <div class="row bg-white mb-30">
         <div class="col-md-12">
             <h1 type="text" id="title" class="add-text-title" th:field="${boardEntity.title}">title</h1>
@@ -20,7 +19,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-30">
             <div class="clearfix">
                 <div th:if="${principal != null && principal == boardEntity.boardWriter}">
                     <button class="btn btn-default pull-right" type="button" onclick="editBoard()">수정하기</button>
@@ -30,9 +29,46 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <label for="comment">comment</label>
+        <form th:action="@{/comment/add}" class="block" onsubmit="onSubmitHandler(event)" method="post"
+              th:object="${commentVo}" id="commentAddForm">
+            <div class="input-group" style="align-content: center;">
+                <input type="hidden" id="boardId" name="boardId" th:value="${boardEntity.boardId}">
+                <input type="text" class="form-control" id="comment" name="comment" placeholder="내용을 입력하세요.">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="commentAdd(event)">등록</button>
+               </span>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <ul class="list-unstyled">
+            <li th:each="comment, index:${commentList}">
+                <span th:text="${comment.commentContent}">comment</span>
+                <span th:text="${comment.commentWriter}">name</span>
+                <span th:text="${comment.createDt}">2018.12.19</span>
+            </li>
+        </ul>
+
+    </div>
+
 </th:block>
 
 <script layout:fragment="scripts" th:inline="javascript">
+
+    function commentAdd(e) {
+        e.preventDefault();
+
+        var principal = [[${principal}]];
+        if (principal === null) {
+            alert("로그인이 필요합니다.");
+            return false;
+        }
+
+        document.querySelector("#commentAddForm").submit();
+    }
 
     function editRecommendation(recommendationNm) {
 

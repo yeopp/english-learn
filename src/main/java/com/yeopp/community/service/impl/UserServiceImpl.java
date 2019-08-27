@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         boolean flag = false;
 
         UserEntity userEntity = userRepository.findByUserIdentification(userId.trim());
-        if(userEntity == null){
+        if (userEntity == null) {
             flag = true;
         }
 

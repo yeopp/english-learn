@@ -1,9 +1,12 @@
 package com.yeopp.community.controller;
 
 import com.yeopp.community.entity.BoardEntity;
+import com.yeopp.community.entity.CommentEntity;
 import com.yeopp.community.repository.RecommendationRepository;
 import com.yeopp.community.service.BoardService;
+import com.yeopp.community.service.CommentService;
 import com.yeopp.community.vo.BoardVo;
+import com.yeopp.community.vo.CommentVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +28,7 @@ import java.security.Principal;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
     private final RecommendationRepository recommendationRepository;
 
     @RequestMapping(value = {"/", "/boards"}, method = RequestMethod.GET)
@@ -51,7 +55,12 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/boards/{boardId}", method = RequestMethod.GET)
-    public String boardView(@PathVariable Integer boardId, Model model, HttpSession session, Principal principal) {
+    public String boardView(@PathVariable Integer boardId,
+                            @ModelAttribute("commentVo") CommentVo commentVo,
+                            @PageableDefault(sort = "commentId", direction = Sort.Direction.DESC) Pageable pageable,
+                            Model model,
+                            HttpSession session,
+                            Principal principal) {
 
         BoardEntity boardEntity = boardService.detailBoard(boardId);
         boardService.boardViewService(boardId, principal, session);
@@ -59,8 +68,12 @@ public class BoardController {
         if (boardEntity == null) {
             return "redirect:/boards";
         }
+
+        Page<CommentEntity> commentList = commentService.getComment(boardId, pageable);
+
         model.addAttribute("boardEntity", boardEntity);
         model.addAttribute("principal", principal != null ? principal.getName() : null);
+        model.addAttribute("commentList", commentList);
         return "public/board-view";
     }
 }

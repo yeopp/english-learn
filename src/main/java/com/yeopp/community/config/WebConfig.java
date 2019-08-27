@@ -8,7 +8,7 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 public class WebConfig {
 
     @Bean
-    public SpringDataDialect springDataDialect(){
+    public SpringDataDialect springDataDialect() {
         return new SpringDataDialect();
     }
 }

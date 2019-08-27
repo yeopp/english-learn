@@ -97,14 +97,14 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public Integer boardRecommendationService(Integer boardId, Integer recommended, Principal principal){
+    public Integer boardRecommendationService(Integer boardId, Integer recommended, Principal principal) {
 
         int result;
 
         BoardEntity boardEntity = detailBoard(boardId);
         Integer recommendCount = recommendationRepository.countByUserIdAndBoardEntityBoardId(principal.getName(), boardId);
 
-        if(recommendCount < 1){
+        if (recommendCount < 1) {
             RecommendationEntity reEntity = new RecommendationEntity();
             reEntity.setUserId(principal.getName());
             reEntity.setBoardEntity(boardEntity);
@@ -112,7 +112,7 @@ public class BoardServiceImpl implements BoardService {
             recommendationRepository.save(reEntity);
 
             result = 1;
-        }else{
+        } else {
             result = 2;
         }
 

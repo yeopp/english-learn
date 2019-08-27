@@ -2,8 +2,10 @@ package com.yeopp.community.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class BoardRequestVo {
+public class BoardRequestVo implements Serializable {
 
     private String boardId;
 

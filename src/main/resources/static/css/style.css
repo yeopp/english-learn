@@ -1,4 +1,7 @@
-body { padding-top: 100px; background-color: #f2f4f7 !important; }
+body {
+    padding-top: 100px;
+    background-color: #f2f4f7 !important;
+}
 
 .flex {
     display: flex;
@@ -21,9 +24,9 @@ body { padding-top: 100px; background-color: #f2f4f7 !important; }
     align-items: center;
 }
 
-.clearfix:before, .clearfix:after{
+.clearfix:before, .clearfix:after {
     clear: both;
-    display:block;
+    display: block;
     content: '';
 }
 
@@ -43,11 +46,11 @@ body { padding-top: 100px; background-color: #f2f4f7 !important; }
     margin-bottom: 50px;
 }
 
-.table>thead>tr>th {
+.table > thead > tr > th {
     border-bottom: 1px solid #ddd !important;
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     border-top: 0 !important;
 }
 
@@ -57,11 +60,11 @@ body { padding-top: 100px; background-color: #f2f4f7 !important; }
     object-fit: cover;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
-.add-text-title{
+.add-text-title {
     border: 0;
     display: block;
     width: 100%;
@@ -75,12 +78,14 @@ input:focus{
 }
 
 /*여기서 부터는 editor class 오버라이딩입니다.*/
-.ql-container{
+.ql-container {
     margin-bottom: 20px;
 }
+
 .ql-editor {
     min-height: 500px;
 }
+
 .board-view-content {
     font-size: 20px;
 }
@@ -89,12 +94,12 @@ input:focus{
     border: 0 !important;
 }
 
-.input-group{
-    width:80%;
+.input-group {
+    width: 80%;
 }
 
 .block {
-    display:block;
+    display: block;
 }
 
 .bg-white {
