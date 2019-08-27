@@ -2,6 +2,9 @@ body {
     padding-top: 100px;
     background-color: #f2f4f7 !important;
 }
+::placeholder  {
+    font-family: Georgia, serif;
+}
 
 .flex {
     display: flex;
