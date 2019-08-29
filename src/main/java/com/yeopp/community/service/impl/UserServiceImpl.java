@@ -26,19 +26,24 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserEntity addUser(UserVo userVo) {
+        try {
+            //TODO... user check validation check 미구현
 
-        //TODO... user check validation check 미구현
+            List<RoleEntity> role = new ArrayList<>();
+            UserEntity userEntity = new UserEntity(userVo);
 
-        List<RoleEntity> role = new ArrayList<>();
-        UserEntity userEntity = new UserEntity(userVo);
+            RoleEntity roleEntity = roleRepository.findByRoleName("USER");
+            role.add(roleEntity);
 
-        RoleEntity roleEntity = roleRepository.findByRoleName("USER");
-        role.add(roleEntity);
+            userEntity.setUserPassword(passwordEncoder.encode(userVo.getUserPassword()));
+            userEntity.setDeleteAt(YesNoType.N);
+            userEntity.setRoleEntityList(role);
 
-        userEntity.setUserPassword(passwordEncoder.encode(userVo.getUserPassword()));
-        userEntity.setDeleteAt(YesNoType.N);
-        userEntity.setRoleEntityList(role);
-        return userRepository.save(userEntity);
+            return userRepository.save(userEntity);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

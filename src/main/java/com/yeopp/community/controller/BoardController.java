@@ -2,7 +2,6 @@ package com.yeopp.community.controller;
 
 import com.yeopp.community.entity.BoardEntity;
 import com.yeopp.community.entity.CommentEntity;
-import com.yeopp.community.repository.RecommendationRepository;
 import com.yeopp.community.service.BoardService;
 import com.yeopp.community.service.CommentService;
 import com.yeopp.community.vo.BoardVo;
@@ -29,16 +28,12 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CommentService commentService;
-    private final RecommendationRepository recommendationRepository;
 
     @RequestMapping(value = {"/", "/boards"}, method = RequestMethod.GET)
-    public ModelAndView home(@PageableDefault(sort = {"boardId"}, direction = Sort.Direction.DESC) Pageable pageable, Principal principal) {
+    public ModelAndView home(@PageableDefault(sort = {"boardId"}, direction = Sort.Direction.DESC) Pageable pageable) {
         ModelAndView model = new ModelAndView("public/index");
         Page<BoardEntity> boardEntity = boardService.listBoard(pageable);
         model.addObject("boardVo", boardEntity);
-
-/*        Boolean test = boardEntity.getContent().get(0).isToday();
-        System.out.println(test);*/
         return model;
     }
 
@@ -49,7 +44,6 @@ public class BoardController {
 
     @RequestMapping(value = "/board/addAf", method = RequestMethod.POST)
     public String boardAddAf(BoardVo boardVo, Principal principal) {
-
         BoardEntity entity = boardService.addBoard(boardVo, principal.getName());
         return "redirect:/boards/" + entity.getBoardId();
     }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +23,19 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public List<CommentEntity.SetCommentVo> addComment(CommentVo vo, Principal principal) {
-        CommentEntity commentEntity = new CommentEntity();
-        BoardEntity boardEntity = boardRepository.findByBoardId(vo.getBoardId());
+    public void addComment(CommentVo vo, Principal principal) {
+        try {
+            CommentEntity commentEntity = new CommentEntity();
+            BoardEntity boardEntity = boardRepository.findByBoardId(vo.getBoardId());
 
-        commentEntity.setBoardEntity(boardEntity);
-        commentEntity.setCommentContent(vo.getComment());
-        commentEntity.setCommentWriter(principal.getName());
-        commentRepository.save(commentEntity);
-        return null;
+            commentEntity.setBoardEntity(boardEntity);
+            commentEntity.setCommentContent(vo.getComment());
+            commentEntity.setCommentWriter(principal.getName());
+            commentRepository.save(commentEntity);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
